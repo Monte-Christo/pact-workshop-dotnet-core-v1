@@ -5,37 +5,46 @@ Install the [Pact CLI tools](https://github.com/pact-foundation/pact-ruby-standa
 
 The below commands are designed for a Linux/OSX environment, please translate for use on Windows/PowerShell as necessary:
 
-1. Sign up to a PactFlow account at https://pactflow.io/register.
+1. Sign up to a PactFlow account at <https://pactflow.io/register>.
 1. Grab a **read/write** API token from the "Settings > API Tokens" page
 1. Export the following into your shell before running
-    ```
+
+    ```bash
     export PACT_BROKER_TOKEN=<insert token here> # do not a user/email/password here e.g. it should like something like 8Axvelr123xCq98h1
     export PACT_BROKER_HOST=<insert host here> # e.g. https://foo.pact.dius.com.au
     ```
-1. Run the consumer tests
-    ```
+
+2. Run the consumer tests
+
+    ```bash
     cd CompletedSolution/Consumer/tests
     dotnet restore
     dotnet test
     ```
-1. Publish the contracts to PactFlow (ensure you're back in the projects' root directory)
-    ```
+
+3. Publish the contracts to PactFlow (ensure you're back in the projects' root directory)
+
+    ```bash
     pact-broker publish --consumer-app-version 1.0.0 --broker-base-url $PACT_BROKER_HOST --broker-token $PACT_BROKER_TOKEN ./pacts/consumer-provider.json --tag master
     ```
-1. Run the [can-i-deploy](https://docs.pact.io/pact_broker/can_i_deploy) check for the consumer
 
-    ```
+4. Run the [can-i-deploy](https://docs.pact.io/pact_broker/can_i_deploy) check for the consumer
+
+    ```bash
     pact-broker can-i-deploy --pacticipant Consumer --latest --broker-base-url $PACT_BROKER_HOST --broker-token $PACT_BROKER_TOKEN
     ```
-1. Run the provider tests
-    ```
+
+5. Run the provider tests
+
+    ```bash
     cd CompletedSolution/Consumer/tests
     dotnet restore
     dotnet test
     ```
-1. Run the [can-i-deploy](https://docs.pact.io/pact_broker/can_i_deploy) check for the provider
 
-    ```
+6. Run the [can-i-deploy](https://docs.pact.io/pact_broker/can_i_deploy) check for the provider
+
+    ```bash
     pact-broker can-i-deploy --pacticipant Provider --latest --broker-base-url $PACT_BROKER_HOST --broker-token $PACT_BROKER_TOKEN
     ```
 
@@ -72,7 +81,7 @@ However before taking part in this workshop please make sure you have:
 
 # Workshop Steps
 
-## Step 1 - Fork the Repo & Explore the Code!
+## Step 1 - Fork the Repo & Explore the Code
 
 Create a fork of [pact-workshop-dotnet-core-v1](https://github.com/tdshipley/pact-workshop-dotnet-core-v1) and familiarise yourself with
 its contents. There are two main folders to be aware of:
@@ -100,7 +109,7 @@ at the code. You might notice before we can run the project successfully we need
 
 Using the command line navigate to:
 
-```
+```bash
 [RepositoryRoot]/YourSolution/Provider/src/
 ```
 
@@ -108,13 +117,13 @@ Once in the Provider */src/* directory first do a ```dotnet restore``` at the co
 Once that has completed run ```dotnet run``` this will start your the Provider API. Now check that everything is working O.K. by navigating to
 the URL below in your browser:
 
-```
+```bash
 http://localhost:9000/api/provider?validDateTime=05/01/2018
 ```
 
 If your request is successful you should see in your browser:
 
-```
+```bash
 {"test":"NO","validDateTime":"05-01-2018 00:00:00"}
 ```
 
@@ -129,14 +138,14 @@ talk about this file later on.
 
 With the Provider API running open another command line instance and navigate to:
 
-```
+```bash
 [RepositoryRoot]/YourSolution/Consumer/src/
 ```
 
 Once in the directory run another ```dotnet restore``` to pull down the dependencies for the Consumer project. Once this is completed at the command line
 type in ```dotnet run``` you should see output:
 
-```
+```bash
 MyPc:src thomas.shipley$ dotnet run
 -------------------
 Running consumer with args: dateTimeToValidate = 05/01/2018, baseUri = http://localhost:9000
@@ -163,14 +172,14 @@ So let's follow this convention and create our *Consumer* tests first.
 Pact cannot execute tests on its own it needs a test runner project. For this workshop, we will be using [XUnit](https://xunit.github.io/) to create the project
 navigate to ```[RepositoryRoot]/YourSolution/Consumer/tests``` and run:
 
-```
+```bash
 dotnet new xunit
 ```
 
 This will create an empty XUnit project with all the references you need... expect Pact. Depending on what OS you are completing this workshop on you will need
 to run one of the following commands:
 
-```
+```bash
 # Windows
 dotnet add package PactNet.Windows --version 2.2.1
 
@@ -186,7 +195,7 @@ dotnet add package PactNet.Linux.x86 --version 2.2.1
 Finally you will need to add a reference to the Consumer Client project src code. So again
 at the same command line type and run the command:
 
-```
+```bash
 dotnet add reference ../src/consumer.csproj
 ```
 
@@ -361,7 +370,6 @@ thing](https://www.youtube.com/watch?v=biW9BbWJtQU).
 
 If the tests were to use the Class Fixture above as is right now the Mock Server might be left running once the tests have finished and worse no Pact file
 would be created - so we wouldn't be able to verify our mocks with the Provider API!
-
 
 It is always a good idea in your tests to teardown any resources used in them at end of the test run. However [XUnit doesn't implement teardown methods](http://mrshipley.com/2018/01/10/implementing-a-teardown-method-in-xunit/) so instead we can implement the IDisposable interface to handle the clean up
 of the Mock HTTP Server which will at the same time generate our Pact file. To do this update your ConsumerPactClassFixture class to conform to IDisposable
