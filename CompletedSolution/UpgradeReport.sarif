@@ -23,13 +23,13 @@
           "ruleId": "Microsoft.DotNet.UpgradeAssistant.Steps.Backup.BackupStep",
           "level": "note",
           "message": {
-            "text": "Complete: Project backed up to D:\\dev\\Play\\pact-ws\\CompletedSolution.backup\\src"
+            "text": "Complete: Project backed up to D:\\dev\\Play\\pact-ws\\CompletedSolution.backup\\src.0"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution.backup/src"
+                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution.backup/src.0"
                 },
                 "region": {}
               }
@@ -63,7 +63,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Consumer/src/consumer.csproj"
+                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Provider/src/provider.csproj"
                 },
                 "region": {}
               }
@@ -100,7 +100,81 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Consumer/src/consumer.csproj"
+                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Provider/src/provider.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Add package 'Microsoft.AspNetCore.Mvc.NewtonsoftJson'",
+          "semanticVersion": "",
+          "informationUri": "https://github.com/dotnet/upgrade-assistant#usage",
+          "rules": [
+            {
+              "id": "Microsoft.DotNet.UpgradeAssistant.Steps.Packages.PackageUpdaterStep+PackageManipulationStep`1[[Microsoft.DotNet.UpgradeAssistant.NuGetReference, Microsoft.DotNet.UpgradeAssistant.Abstractions, Version=0.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]",
+              "fullDescription": {
+                "text": "Reference to Newtonsoft package (Microsoft.AspNetCore.Mvc.NewtonsoftJson, version 7.0.3) needs to be added"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Microsoft.DotNet.UpgradeAssistant.Steps.Packages.PackageUpdaterStep+PackageManipulationStep`1[[Microsoft.DotNet.UpgradeAssistant.NuGetReference, Microsoft.DotNet.UpgradeAssistant.Abstractions, Version=0.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]",
+          "level": "note",
+          "message": {
+            "text": "Complete: Add package 'Microsoft.AspNetCore.Mvc.NewtonsoftJson'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Provider/src/provider.csproj"
+                },
+                "region": {}
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Apply fix for UA0002: Types should be upgraded",
+          "semanticVersion": "",
+          "informationUri": "https://github.com/dotnet/upgrade-assistant#usage",
+          "rules": [
+            {
+              "id": "UA0002",
+              "fullDescription": {
+                "text": "Update source files to automatically fix upgrade analyzer UA0002"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "UA0002",
+          "level": "note",
+          "message": {
+            "text": "Complete: Diagnostic UA0002 fixed in D:\\dev\\Play\\pact-ws\\CompletedSolution\\Provider\\src\\Controllers\\ProviderController.cs"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/dev/Play/pact-ws/CompletedSolution/Provider/src/Controllers/ProviderController.cs"
                 },
                 "region": {}
               }

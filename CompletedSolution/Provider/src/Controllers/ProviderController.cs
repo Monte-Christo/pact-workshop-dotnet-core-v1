@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 namespace Provider.Controllers
 {
     [Route("api/[controller]")]
-    public class ProviderController : Controller
+    public class ProviderController : Microsoft.AspNetCore.Mvc.Controller
     {
         private IConfiguration _Configuration { get; }
 
