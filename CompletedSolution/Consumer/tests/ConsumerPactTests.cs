@@ -9,8 +9,8 @@ namespace tests
 {
     public class ConsumerPactTests : IClassFixture<ConsumerPactClassFixture>
     {
-        private IMockProviderService _mockProviderService;
-        private string _mockProviderServiceBaseUri;
+        private readonly IMockProviderService _mockProviderService;
+        private readonly string _mockProviderServiceBaseUri;
 
         public ConsumerPactTests(ConsumerPactClassFixture fixture)
         {
@@ -22,7 +22,7 @@ namespace tests
         [Fact]
         public void ItHandlesInvalidDateParam()
         {
-            // Arange
+            // Arrange
             var invalidRequestMessage = "validDateTime is not a date or time";
             _mockProviderService.Given("There is data")
                                 .UponReceiving("A invalid GET request for Date Validation with invalid date parameter")
