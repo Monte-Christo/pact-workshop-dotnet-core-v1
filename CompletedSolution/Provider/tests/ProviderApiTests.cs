@@ -32,7 +32,7 @@ namespace tests
         }
 
         [Fact]
-        public void EnsureProviderApiHonoursPactWithConsumer()
+        public void EnsureProviderApiHonorsPactWithConsumer()
         {
             // Arrange
             var config = new PactVerifierConfig
