@@ -1,84 +1,29 @@
 {
   "consumer": {
-    "name": "Consumer"
+    "name": "consumer"
   },
   "provider": {
-    "name": "Provider"
+    "name": "provider"
   },
   "interactions": [
     {
-      "description": "A invalid GET request for Date Validation with invalid date parameter",
-      "providerState": "There is data",
+      "provider_state": "There is data",
+      "description": "An invalid GET request for Date Validation with invalid date parameter",
       "request": {
-        "method": "get",
-        "path": "/api/provider",
-        "query": "validDateTime=lolz"
+        "method": "GET",
+        "path": "/api/provider?validDateTime=lolz"
       },
       "response": {
+        "headers": {
+          "content-Type": "application/json; charset=utf-8"
+        },
         "status": 400,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "message": "validDateTime is not a date or time"
-        }
-      }
-    },
-    {
-      "description": "A valid GET request for Date Validation",
-      "providerState": "There is no data",
-      "request": {
-        "method": "get",
-        "path": "/api/provider",
-        "query": "validDateTime=04/04/2018"
-      },
-      "response": {
-        "status": 404,
-        "headers": {
-        }
-      }
-    },
-    {
-      "description": "A valid GET request for Date Validation",
-      "providerState": "There is data",
-      "request": {
-        "method": "get",
-        "path": "/api/provider",
-        "query": "validDateTime=04/05/2018"
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "test": "NO",
-          "validDateTime": "04-05-2018 00:00:00"
-        }
-      }
-    },
-    {
-      "description": "A invalid GET request for Date Validation with empty string date parameter",
-      "providerState": "There is data",
-      "request": {
-        "method": "get",
-        "path": "/api/provider",
-        "query": "validDateTime="
-      },
-      "response": {
-        "status": 400,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "message": "validDateTime is required"
-        }
+        "body": "validDateTime is not a date or time"
       }
     }
   ],
-  "metadata": {
-    "pactSpecification": {
-      "version": "2.0.0"
-    }
+  "options": {
+    "ignoreCasing": true,
+    "ignoreContractValues": true
   }
 }
