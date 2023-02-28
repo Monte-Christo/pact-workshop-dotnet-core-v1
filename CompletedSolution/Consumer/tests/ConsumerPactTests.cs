@@ -40,26 +40,6 @@ namespace tests
                     .PublishedAsFile("../../../../../pacts")
                     .MakeAsync();
 
-            //_mockProviderService.Given("There is data")
-            //                    .UponReceiving("A invalid GET request for Date Validation with invalid date parameter")
-            //                    .With(new ProviderServiceRequest
-            //                    {
-            //                        Method = HttpVerb.Get,
-            //                        Path = "/api/provider",
-            //                        Query = "validDateTime=lolz"
-            //                    })
-            //                    .WillRespondWith(new ProviderServiceResponse
-            //                    {
-            //                        Status = 400,
-            //                        Headers = new Dictionary<string, object>
-            //                        {
-            //                            { "Content-Type", "application/json; charset=utf-8" }
-            //                        },
-            //                        Body = new
-            //                        {
-            //                            message = invalidRequestMessage
-            //                        }
-            //                    });
 
             //// Act
             //var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi("lolz", _mockProviderServiceBaseUri).GetAwaiter().GetResult();
