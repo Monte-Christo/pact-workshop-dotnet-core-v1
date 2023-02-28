@@ -1,7 +1,6 @@
-using System;
-using Xunit;
 using PactNet;
 using PactNet.Mocks.MockHttpService;
+using System;
 
 namespace tests
 {
@@ -14,8 +13,8 @@ namespace tests
         public IPactBuilder PactBuilder { get; private set; }
         public IMockProviderService MockProviderService { get; private set; }
 
-        public int MockServerPort { get { return 9222; } }
-        public string MockProviderServiceBaseUri { get { return String.Format("http://localhost:{0}", MockServerPort); } }
+        public int MockServerPort => 9222;
+        public string MockProviderServiceBaseUri => $"http://localhost:{MockServerPort}";
 
         public ConsumerPactClassFixture()
         {
@@ -36,11 +35,11 @@ namespace tests
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
@@ -48,7 +47,7 @@ namespace tests
                     PactBuilder.Build();
                 }
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
