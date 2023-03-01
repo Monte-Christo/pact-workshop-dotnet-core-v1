@@ -37,7 +37,7 @@ namespace tests
                         .WithStatusCode(HttpStatusCode.BadRequest)
                         .WithHeader("Content-Type", "application/json; charset=utf-8")
                         .WithBody(invalidRequestMessage)))
-                    .PublishedAsFile("../../../../../pacts")
+                    .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.1", HttpMethod.Put)
                     .MakeAsync();
 
 
