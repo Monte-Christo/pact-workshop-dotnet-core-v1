@@ -37,7 +37,7 @@ namespace tests
                         .WithStatusCode(HttpStatusCode.BadRequest)
                         .WithHeader("Content-Type", "application/json; charset=utf-8")
                         .WithBody(invalidRequestMessage)))
-                    .PublishedAsFile("../../../../../pacts")
+                    .PublishedViaHttp("https://simcorpdm.pactflow.io/", HttpMethod.Post, "f3ZXi7mzYmbJXIks3dJnzw")
                     .MakeAsync();
 
 
