@@ -53,14 +53,15 @@ namespace tests
 
             };
 
-            //Act / Assert
+            //Act + Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
-                .ServiceProvider("Provider", _providerUri)
-                .HonoursPactWith("Consumer")
-                .PactBroker("https://dius.pact.dius.com.au",
-                    uriOptions: new PactUriOptions(System.Environment.GetEnvironmentVariable("PACT_BROKER_TOKEN")),
-                    consumerVersionTags: new List<string> { "master" })
+                .ServiceProvider("provider", _providerUri)
+                .HonoursPactWith("consumer")
+                .PactBroker("http://localhost:9292"
+                    // uriOptions: new PactUriOptions(System.Environment.GetEnvironmentVariable("PACT_BROKER_TOKEN")),
+                    // consumerVersionTags: new List<string> { "master" }
+                    )
                 .Verify();
         }
 

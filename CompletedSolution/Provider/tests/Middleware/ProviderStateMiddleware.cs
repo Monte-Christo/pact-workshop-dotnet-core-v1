@@ -71,10 +71,9 @@ namespace tests.Middleware
         {
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
-            if (context.Request.Method.ToUpper() == HttpMethod.Post.ToString().ToUpper() &&
-                context.Request.Body != null)
+            if (context.Request.Method.ToUpper() == HttpMethod.Post.ToString().ToUpper())
             {
-                string jsonRequestBody = String.Empty;
+                string jsonRequestBody;
                 using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
                 {
                     jsonRequestBody = reader.ReadToEnd();
