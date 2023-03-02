@@ -12,23 +12,23 @@ namespace tests
 {
     public class ProviderApiTests : IDisposable
     {
-        private string _providerUri { get; }
-        private string _pactServiceUri { get; }
-        private IWebHost _webHost { get; }
-        private ITestOutputHelper _outputHelper { get; }
+        private string ProviderUri { get; }
+        private string PactServiceUri { get; }
+        private IWebHost WebHost { get; }
+        private ITestOutputHelper OutputHelper { get; }
 
         public ProviderApiTests(ITestOutputHelper output)
         {
-            _outputHelper = output;
-            _providerUri = "http://localhost:9000";
-            _pactServiceUri = "http://localhost:9001";
+            OutputHelper = output;
+            ProviderUri = "http://localhost:9000";
+            PactServiceUri = "http://localhost:9001";
 
-            _webHost = WebHost.CreateDefaultBuilder()
-                .UseUrls(_pactServiceUri)
+            WebHost = Microsoft.AspNetCore.WebHost.CreateDefaultBuilder()
+                .UseUrls(PactServiceUri)
                 .UseStartup<TestStartup>()
                 .Build();
 
-            _webHost.Start();
+            WebHost.Start();
         }
 
         [Fact]
@@ -40,10 +40,10 @@ namespace tests
 
                 // NOTE: We default to using a ConsoleOutput,
                 // however xUnit 2 does not capture the console output,
-                // so a custom outputter is required.
+                // so a custom out-putter is required.
                 Outputters = new List<IOutput>
                                 {
-                                    new XUnitOutput(_outputHelper)
+                                    new XUnitOutput(OutputHelper)
                                 },
 
                 // Output verbose verification logs to the test output
@@ -55,8 +55,8 @@ namespace tests
 
             //Act + Assert
             IPactVerifier pactVerifier = new PactVerifier(config);
-            pactVerifier.ProviderState($"{_pactServiceUri}/provider-states")
-                .ServiceProvider("provider", _providerUri)
+            pactVerifier.ProviderState($"{PactServiceUri}/provider-states")
+                .ServiceProvider("provider", ProviderUri)
                 .HonoursPactWith("consumer")
                 .PactBroker("http://localhost:9292"
                     // uriOptions: new PactUriOptions(System.Environment.GetEnvironmentVariable("PACT_BROKER_TOKEN")),
@@ -74,8 +74,8 @@ namespace tests
             {
                 if (disposing)
                 {
-                    _webHost.StopAsync().GetAwaiter().GetResult();
-                    _webHost.Dispose();
+                    WebHost.StopAsync().GetAwaiter().GetResult();
+                    WebHost.Dispose();
                 }
 
                 disposedValue = true;

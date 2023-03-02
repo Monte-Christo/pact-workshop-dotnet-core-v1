@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
-namespace Provider.Controllers
-{
+namespace Provider.Controllers {
     [Route("api/[controller]")]
     public class ProviderController : Microsoft.AspNetCore.Mvc.Controller
     {

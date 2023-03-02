@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prov", "Prov", "{91962DF5-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tests", "Provider\tests\tests.csproj", "{1A68868A-FB77-45FA-9998-7DEFAF3A32A4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pacts", "Pacts", "{47D8CDED-A732-43AE-B5F5-D7EDC026A114}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

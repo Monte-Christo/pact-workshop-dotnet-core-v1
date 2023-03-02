@@ -34,10 +34,10 @@ namespace tests
                         .WithMethod(HttpMethod.Get)
                         .WithPath("/api/provider?validDateTime=lolz"))
                     .WillRespondWith(resp => resp
-                        .WithStatusCode(HttpStatusCode.BadRequest)
+                        .WithStatusCode(HttpStatusCode.Unauthorized)
                         .WithHeader("Content-Type", "application/json; charset=utf-8")
                         .WithBody(invalidRequestMessage)))
-                    .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.1", HttpMethod.Put)
+                    .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.3", HttpMethod.Put)
                     .MakeAsync();
 
 
