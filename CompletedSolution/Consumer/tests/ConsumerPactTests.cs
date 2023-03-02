@@ -23,13 +23,13 @@ namespace tests
         public async Task ItHandlesInvalidDateParam()
         {
             // Arrange
-            var invalidRequestMessage = "validDateTime is not a date or time";
+            var invalidRequestMessage = "validDateTime is not a valid date or time";
             await PactMaker
                 .Create(_options)
                 .Between("consumer", "provider")
                 .WithHttpInteraction(b => b
-                    .Given("There is data")
-                    .UponReceiving("An invalid GET request for Date Validation with invalid date parameter")
+                    .Given("There is DateTime data")
+                    .UponReceiving("A GET request for Date Validation with invalid date parameter")
                     .With(req => req
                         .WithMethod(HttpMethod.Get)
                         .WithPath("/api/provider?validDateTime=lolz"))
