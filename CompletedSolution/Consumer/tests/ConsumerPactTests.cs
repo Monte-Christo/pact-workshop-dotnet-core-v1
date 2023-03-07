@@ -4,26 +4,21 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace tests
-{
-    public class ConsumerPactTests
-    {
+namespace tests {
+    public class ConsumerPactTests {
         private readonly PactDefinitionOptions _options;
 
-        public ConsumerPactTests()
-        {
-            _options = new PactDefinitionOptions
-            {
+        public ConsumerPactTests() {
+            _options = new PactDefinitionOptions {
                 IgnoreCasing = true,
                 IgnoreContractValues = true
             };
         }
 
         [Fact]
-        public async Task ItHandlesInvalidDateParam()
-        {
+        public async Task ItHandlesInvalidDateParam() {
             // Arrange
-            var invalidRequestMessage = "validDateTime is not a valid date or time";
+            const string invalidRequestMessage = "validDateTime is not a valid date or time";
             await PactMaker
                 .Create(_options)
                 .Between("consumer", "provider")
@@ -37,7 +32,7 @@ namespace tests
                         .WithStatusCode(HttpStatusCode.Unauthorized)
                         .WithHeader("Content-Type", "application/json; charset=utf-8")
                         .WithBody(invalidRequestMessage)))
-                    .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.3", HttpMethod.Put)
+                    .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.1", HttpMethod.Post)
                     .MakeAsync();
 
 
@@ -49,39 +44,54 @@ namespace tests
             //Assert.Contains(invalidRequestMessage, resultBodyText);
         }
 
-        //[Fact]
-        //public void ItHandlesEmptyDateParam()
-        //{
-        //    // Arrange
-        //    var invalidRequestMessage = "validDateTime is required";
-        //    _mockProviderService.Given("There is data")
-        //                        .UponReceiving("A invalid GET request for Date Validation with empty string date parameter")
-        //                        .With(new ProviderServiceRequest
-        //                        {
-        //                            Method = HttpVerb.Get,
-        //                            Path = "/api/provider",
-        //                            Query = "validDateTime="
-        //                        })
-        //                        .WillRespondWith(new ProviderServiceResponse
-        //                        {
-        //                            Status = 400,
-        //                            Headers = new Dictionary<string, object>
-        //                            {
-        //                                { "Content-Type", "application/json; charset=utf-8" }
-        //                            },
-        //                            Body = new
-        //                            {
-        //                                message = invalidRequestMessage
-        //                            }
-        //                        });
+        [Fact]
+        public async Task ItHandlesEmptyDateParam() {
+            // Arrange
+            const string invalidRequestMessage = "validDateTime is required and must not be empty";
+            await PactMaker
+                .Create(_options)
+                .Between("consumer", "provider")
+                .WithHttpInteraction(b => b
+                    .Given("There is data")
+                    .UponReceiving("An invalid GET request for Date Validation with empty string date parameter")
+                    .With(req => req
+                        .WithMethod(HttpMethod.Get)
+                        .WithPath("/api/provider?validDateTime="))
+                    .WillRespondWith(resp => resp
+                        .WithStatusCode(HttpStatusCode.BadRequest)
+                        .WithHeader("Content-Type", "application/json; charset=utf-8")
+                        .WithBody(invalidRequestMessage)))
+                .PublishedViaHttp("http://localhost:9292/pacts/provider/provider/consumer/consumer/version/0.1.1", HttpMethod.Post)
+                .MakeAsync();
 
-        //    // Act
-        //    var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi(String.Empty, _mockProviderServiceBaseUri).GetAwaiter().GetResult();
-        //    var resultBodyText = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            //    _mockProviderService.Given("There is data")
+            //                        .UponReceiving("A invalid GET request for Date Validation with empty string date parameter")
+            //                        .With(new ProviderServiceRequest
+            //                        {
+            //                            Method = HttpVerb.Get,
+            //                            Path = "/api/provider",
+            //                            Query = "validDateTime="
+            //                        })
+            //                        .WillRespondWith(new ProviderServiceResponse
+            //                        {
+            //                            Status = 400,
+            //                            Headers = new Dictionary<string, object>
+            //                            {
+            //                                { "Content-Type", "application/json; charset=utf-8" }
+            //                            },
+            //                            Body = new
+            //                            {
+            //                                message = invalidRequestMessage
+            //                            }
+            //                        });
 
-        //    // Assert
-        //    Assert.Contains(invalidRequestMessage, resultBodyText);
-        //}
+            //    // Act
+            //    var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi(String.Empty, _mockProviderServiceBaseUri).GetAwaiter().GetResult();
+            //    var resultBodyText = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            //    // Assert
+            //    Assert.Contains(invalidRequestMessage, resultBodyText);
+        }
 
         //[Fact]
         //public void ItHandlesNoData()
